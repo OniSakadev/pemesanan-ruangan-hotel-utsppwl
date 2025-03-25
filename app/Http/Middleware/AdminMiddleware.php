@@ -15,13 +15,16 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if (Auth::user()->usertype == 'admin') {
-            return $next($request);
+        if (Auth::check()) {
+            if (Auth::user()->role == 'admin' && $request->is('user/*')) {
+                return redirect('/admin/dashboard');
+            } elseif (Auth::user()->role == 'user' && $request->is('admin/*')) {
+                return redirect('/dashboard');
+            }
         }
-
-        // Jika tidak memiliki akses, arahkan kembali
-        return redirect()->back();
+        return $next($request);
     }
+    
 }
