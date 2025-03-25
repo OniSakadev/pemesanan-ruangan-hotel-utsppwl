@@ -5,16 +5,49 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ Auth::user()->usertype == 'admin' ? route('admin.dashboard') :  route('dashboard')}}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="Auth::user()->usertype == 'admin' ? route('admin.dashboard') :  route('dashboard')" :active="Auth::user()->usertype == 'admin' ? request()->routeIs('admin.dashboard') :  request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if (Auth::user()->usertype == 'admin')
+                    <x-nav-link href="admin/kamar" :active=" request()->routeIs('admin.kamar') ">
+                        {{ __('Manajemen Kamar') }}
+                    </x-nav-link>
+
+
+                    <x-nav-link href="admin/pesanan" :active=" request()->routeIs('admin.pesanan') ">
+                        {{ __('Kelola Pesanan') }}
+                    </x-nav-link>
+
+                    <x-nav-link href="admin/user" :active=" request()->routeIs('admin.user') ">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    @endif
+
+
+
+
+
+
+                    @if (Auth::user()->usertype == 'user')
+                    <x-nav-link :href="route('hotels.index')" :active=" request()->routeIs('hotels.index') ">
+                        {{ __('Cari Hotel') }}
+                    </x-nav-link>
+            
+
+                    <x-nav-link :href="route ('pesanan.index')" :active=" request()->routeIs('pesanan.index') ">
+                        {{ __('Pesanan Saya') }}
+                    </x-nav-link>
+
+                   
+                    @endif
                 </div>
             </div>
 
@@ -43,7 +76,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -89,7 +122,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
