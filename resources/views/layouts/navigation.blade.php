@@ -17,11 +17,12 @@
                     </x-nav-link>
 
                     @if (Auth::user()->usertype == 'admin')
-                    <x-nav-link href="admin/kamar" :active=" request()->routeIs('admin.kamar') ">
+                    <x-nav-link :href="route('admin.kamar.index')" :active="request()->routeIs('admin.kamar.index')">
                         {{ __('Manajemen Kamar') }}
                     </x-nav-link>
 
 
+                    
                     <x-nav-link href="admin/pesanan" :active=" request()->routeIs('admin.pesanan') ">
                         {{ __('Kelola Pesanan') }}
                     </x-nav-link>
