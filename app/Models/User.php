@@ -45,4 +45,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Hotel::class, 'favorites'); // Pastikan ada tabel pivot 'favorites'
+    }
 }
