@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kamar;
 use Illuminate\Http\Request;
 
-class KamarController extends Controller
+class AdminKamarController extends Controller
 {
     public function index()
     {
@@ -35,7 +35,7 @@ class KamarController extends Controller
 
     public function edit(Kamar $kamar)
     {
-        return view('admin.kamar.edit', compact('kamar')); // ✅ FIXED: arahkan ke edit.blade.php
+        return view('admin.kamar.edit', compact('kamar'));
     }
 
     public function update(Request $request, Kamar $kamar)
