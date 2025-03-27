@@ -10,34 +10,37 @@ use Illuminate\Support\Facades\Auth;
 
 class PesananController extends Controller
 {
+    // Menampilkan daftar pesanan user
     public function index()
     {
-        $pesanan = Pesanan::where('user_id', Auth::id())->with('kamar')->get();
-        return view('user.pesanans.pesanan', compact('pesanan'));
+        $pesanan = Pesanan::where('user_id', Auth::id())->with('kamar')->latest()->get();
+        return view('user.pesanans.index', compact('pesanan'));
     }
 
+    // Menyimpan pesanan baru
     public function store(Request $request)
     {
         $request->validate([
             'kamar_id' => 'required|exists:kamars,id',
-            'tanggal_checkin' => 'required|date',
+            'tanggal_checkin' => 'required|date|after_or_equal:today',
             'tanggal_checkout' => 'required|date|after:tanggal_checkin',
         ]);
 
-        $pesanan = Pesanan::create([
+        Pesanan::create([
             'user_id' => Auth::id(),
             'kamar_id' => $request->kamar_id,
             'tanggal_checkin' => $request->tanggal_checkin,
             'tanggal_checkout' => $request->tanggal_checkout,
-            'status' => 'pending',
+            'status' => 'pending', // Status awal pemesanan
         ]);
 
-        return redirect()->route('pesanan.index')->with('success', 'Pemesanan berhasil!');
+        return redirect()->route('pesanan.index')->with('success', 'Pemesanan berhasil dibuat!');
     }
 
+    // Membatalkan pesanan (hanya jika status masih pending)
     public function destroy($id)
     {
-        $pesanan = Pesanan::findOrFail($id);
+        $pesanan = Pesanan::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
         if ($pesanan->status !== 'pending') {
             return redirect()->route('pesanan.index')->with('error', 'Pesanan tidak bisa dibatalkan.');
