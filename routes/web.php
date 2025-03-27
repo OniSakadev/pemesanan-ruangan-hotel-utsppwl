@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\KamarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HotelController;
 use App\Http\Controllers\User\PesananController;
-use App\Http\Controllers\User\KamarController;
 
 Route::get('/', function () {
     return view('welcome');
