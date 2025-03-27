@@ -37,8 +37,8 @@
 
 
                     @if (Auth::user()->usertype == 'user')
-                    <x-nav-link :href="route('hotels.index')" :active=" request()->routeIs('hotels.index') ">
-                        {{ __('Cari Hotel') }}
+                    <x-nav-link :href="route('kamars.index')" :active=" request()->routeIs('kamars.index') ">
+                        {{ __('Cari Kamar') }}
                     </x-nav-link>
             
 

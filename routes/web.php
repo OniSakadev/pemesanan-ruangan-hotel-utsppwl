@@ -6,6 +6,7 @@ use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HotelController;
 use App\Http\Controllers\User\PesananController;
+use App\Http\Controllers\User\KamarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/pesanan', [PesananController::class, 'store'])->name('pesanan.store');
     Route::delete('/pesanan/{id}', [PesananController::class, 'destroy'])->name('pesanan.destroy');
 
+
+    Route::get('/kamars', [KamarController::class, 'index'])->name('kamars.index');
+    Route::get('/kamars/cari', [KamarController::class, 'cariKamar'])->name('kamars.cari');
+    Route::get('/kamars/{id}', [KamarController::class, 'show'])->name('kamars.show');
+    Route::post('/kamars/pesan', [KamarController::class, 'pesanKamar'])->name('kamars.pesan');
 });
 
 
