@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\KamarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HotelController;
 use App\Http\Controllers\User\PesananController;
@@ -54,3 +55,14 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
+
+//manajamen kamar
+Route::middleware(['auth', 'adminMiddleware'])->prefix('admin')->group(function () {
+    Route::get('/kamar', [KamarController::class, 'index'])->name('admin.kamar.index');
+    Route::get('/kamar/create', [KamarController::class, 'create'])->name('admin.kamar.create');
+    Route::post('/kamar/store', [KamarController::class, 'store'])->name('admin.kamar.store');
+    Route::get('/kamar/{kamar}/edit', [KamarController::class, 'edit'])->name('admin.kamar.edit');
+    Route::put('/kamar/{kamar}', [KamarController::class, 'update'])->name('admin.kamar.update');
+    Route::delete('/kamar/{kamar}', [KamarController::class, 'destroy'])->name('admin.kamar.destroy');
+});
+

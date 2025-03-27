@@ -9,9 +9,20 @@ class Kamar extends Model
 {
     use HasFactory;
 
+
     protected $table = 'kamars'; // Sesuaikan dengan nama tabel di database
 
     protected $fillable = ['hotel_id', 'tipe', 'harga', 'deskripsi', 'status'];
+
+    protected $table = 'kamars';
+
+    protected $fillable = [
+        'tipe',
+        'harga',
+        'deskripsi',
+        'status',
+    ];
+
 
     public function hotel()
     {
