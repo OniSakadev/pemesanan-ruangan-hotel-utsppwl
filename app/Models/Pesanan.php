@@ -9,6 +9,8 @@ class Pesanan extends Model
 {
     use HasFactory;
 
+    protected $table = 'pesanan';
+
     protected $fillable = ['user_id', 'kamar_id', 'tanggal_checkin', 'tanggal_checkout', 'status'];
 
     public function user()
@@ -19,5 +21,10 @@ class Pesanan extends Model
     public function kamar()
     {
         return $this->belongsTo(Kamar::class);
+    }
+
+    public function status()
+    {
+        return ucfirst($this->status); // Capitalize status
     }
 }

@@ -50,4 +50,17 @@ class PesananController extends Controller
 
         return redirect()->route('pesanan.index')->with('success', 'Pesanan berhasil dibatalkan.');
     }
+    public function batal($id)
+    {
+        $pesanan = Pesanan::findOrFail($id);
+
+        if ($pesanan->status == 'pending') {
+            $pesanan->status = 'canceled';
+            $pesanan->save();
+
+            return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan.');
+        }
+
+    return redirect()->back()->with('error', 'Pesanan tidak dapat dibatalkan.');
+    }
 }

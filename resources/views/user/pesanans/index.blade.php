@@ -41,19 +41,23 @@
                         <td>{{ date('d M Y', strtotime($item->tanggal_checkin)) }}</td>
                         <td>{{ date('d M Y', strtotime($item->tanggal_checkout)) }}</td>
                         <td>
-                            <span class="badge bg-{{ $item->status == 'pending' ? 'warning' : 'success' }}">
-                                {{ ucfirst($item->status) }}
-                            </span>
+                            @if($item->status == 'pending')
+                                <span class="badge bg-warning">Pending</span>
+                            @elseif($item->status == 'diterima')
+                                <span class="badge bg-success">Diterima</span>
+                            @elseif($item->status == 'canceled')
+                                <span class="badge bg-danger">Dibatalkan</span>
+                            @endif
                         </td>
                         <td>
                             @if($item->status == 'pending')
-                            <form action="{{ route('pesanan.destroy', $item->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('pesanan.batal', $item->id) }}" method="POST" class="d-inline">
                                 @csrf
-                                @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
                                     ❌ Batalkan
                                 </button>
                             </form>
+
                             @else
                             <span class="text-muted">Tidak dapat dibatalkan</span>
                             @endif

@@ -23,12 +23,12 @@
 
 
                     
-                    <x-nav-link href="admin/pesanan" :active=" request()->routeIs('admin.pesanan') ">
+                    <x-nav-link href="/admin/pesanan" :active=" request()->routeIs('admin.pemesanan.index') ">
                         {{ __('Kelola Pesanan') }}
                     </x-nav-link>
 
-                    <x-nav-link href="admin/user" :active=" request()->routeIs('admin.user') ">
-                        {{ __('User') }}
+                    <x-nav-link href="/admin/users" :active=" request()->routeIs('admin.users.index') ">
+                        {{ __('Kelola User') }}
                     </x-nav-link>
                     @endif
 

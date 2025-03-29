@@ -4,12 +4,12 @@
 <div class="container">
     <h3 class="text-center">Cari Kamar</h3>
     <form id="search-form">
-        <input type="text" id="search" class="form-control" placeholder="Cari tipe kamar..." required>
+        <input type="text" id="search" class="form-control" placeholder="Cari tipe kamar...">
         <button type="submit" class="btn btn-primary mt-2">Cari</button>
     </form>
 
     <div id="kamar-list" class="mt-3">
-        <p class="text-muted">Masukkan tipe kamar untuk mencari...</p>
+        <p class="text-muted text-center">Memuat kamar...</p>
     </div>
 </div>
 
@@ -26,7 +26,7 @@
                     kamarList.empty();
 
                     if (response.kamars.length === 0) {
-                        kamarList.html('<p class="text-danger text-center">Kamar tidak ditemukan.</p>');
+                        kamarList.html('<p class="text-danger text-center">🚫 Kamar tidak ditemukan.</p>');
                     } else {
                         let html = '<ul class="list-group">';
                         response.kamars.forEach(function(kamar) {
@@ -40,10 +40,13 @@
                 },
                 error: function(xhr) {
                     console.error("Error:", xhr.responseText);
-                    $('#kamar-list').html('<p class="text-danger">Terjadi kesalahan, coba lagi.</p>');
+                    $('#kamar-list').html('<p class="text-danger">❌ Terjadi kesalahan, coba lagi.</p>');
                 }
             });
         }
+
+        // **Saat halaman pertama kali dimuat, langsung tampilkan semua kamar**
+        fetchKamars();  
 
         $('#search-form').on('submit', function(e) {
             e.preventDefault();
@@ -52,3 +55,4 @@
     });
 </script>
 @endsection
+#                             </form>
